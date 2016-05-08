@@ -53,12 +53,14 @@ $(function(){
 
            this.initNavLetter();
            this.initScrollBar();
+           this.iOSOverflowScroll(citys)
        },
 
        initNavLetter:function(){
            var citys = document.querySelector('#citys');
            var letters = document.querySelectorAll('.title');
            var fixed = document.querySelector('.fixed');
+           fixed.innerText = letters[0].innerText;
            citys.addEventListener('scroll',function(e){
                var current = letters[0];
                for (var i=0;i<letters.length;i++){
@@ -104,6 +106,24 @@ $(function(){
                var top = document.querySelector('#'+letter).offsetTop;
                container.scrollTop = top;
            }
+       },
+       iOSOverflowScroll:function(targets){
+               var topScroll = 0;
+               if (navigator.userAgent.indexOf('Mac') > -1) {
+                   targets = Array.isArray(targets) || targets instanceof NodeList ? targets : [targets];
+                   for (var i = 0; i < targets.length; i++) {
+                       var view = targets[i];
+                       view.addEventListener('touchstart', function (e) {
+                           topScroll = this.scrollTop;
+                           if (topScroll <= 0) {
+                               this.scrollTop = 1
+                           }
+                           if (topScroll + this.offsetHeight >= this.scrollHeight) {
+                               this.scrollTop = topScroll - 1
+                           }
+                       }, false)
+                   }
+               }
        }
    };
    obj.init();

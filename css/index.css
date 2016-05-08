@@ -5,9 +5,8 @@ html,body{
     overflow: hidden;
 }
 header{
-    height: 10%;
-    background: #3789E2;
-    padding: 0.5em 0;
+    height: 8%;
+    background: #199DD2;
     box-sizing: border-box;
     margin: auto;
 }
@@ -26,7 +25,7 @@ header .search{
     width: 90%;
     margin: auto;
     color: #FFF;
-    font-size: 1.1em;
+    font-size: 1em;
     display: -webkit-box;
     -webkit-box-align: center;
     -webkit-box-pack: center;
@@ -35,21 +34,25 @@ section .citys{
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
-    -webkit-overflow-scroll: touch;
+    -webkit-overflow-scrolling: touch;
 }
 section .title{
     background: #e5e5e5;
     display: inline-block;
     width: 100%;
-    padding: 0.2em 0.7em;
+    padding: 0.2em 1.2em;
     margin: 0;
-    color: #1275E0;
+    color: #199DD2;
     font-size: 0.9em;
 }
 section .data{
-    padding: 0.5em;
-    border-bottom:1px solid #E4E2E2;
+    margin: 0 1.3em 0 1em;
+    border-bottom: 1px solid #E4E2E2;
     color: #333;
+    padding: 0.5em 0;
+}
+section .data:last-child{
+    border-bottom: none;
 }
 section .fixed{
     position: absolute;
@@ -57,18 +60,18 @@ section .fixed{
     left: 0;
     background: #e5e5e5;
     width: 100%;
-    padding: 0.2em 0.7em;
-    color: #1275E0;
+    padding: 0.2em 1.2em;
+    color: #199DD2;
     font-size: 0.9em;
 }
 section .bar{
     position: absolute;
     right: 0;
-    top: 5%;
+    top: 2em;
     padding: 0.5em 0.3em;
     text-align: center;
     font-size: 0.8em;
-    color:#1275E0;
+    color:#199DD2;
 }
 section .bar .item{
    padding: 0 0;
