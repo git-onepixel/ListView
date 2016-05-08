@@ -3,12 +3,17 @@ html,body{
     height: 100%;
     font-family: Arial,"Microsoft YaHei UI";
     overflow: hidden;
+    -webkit-user-select: none;
 }
 header{
     height: 8%;
     background: #199DD2;
     box-sizing: border-box;
     margin: auto;
+    color: #FFF;
+    display: -webkit-box;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
 }
 section{
     height: 90%;
@@ -19,17 +24,6 @@ section{
     width: 0;
     height: 0;
 }
-header .search{
-    height: 100%;
-    box-sizing: border-box;
-    width: 90%;
-    margin: auto;
-    color: #FFF;
-    font-size: 1em;
-    display: -webkit-box;
-    -webkit-box-align: center;
-    -webkit-box-pack: center;
-}
 section .citys{
     height: 100%;
     overflow-y: auto;
@@ -38,12 +32,12 @@ section .citys{
 }
 section .title{
     background: #e5e5e5;
-    display: inline-block;
     width: 100%;
-    padding: 0.2em 1.2em;
-    margin: 0;
+    height: 1.6em;
+    padding: 0 1.2em;
     color: #199DD2;
     font-size: 0.9em;
+    line-height: 1.6em;
 }
 section .data{
     margin: 0 1.3em 0 1em;
@@ -60,14 +54,17 @@ section .fixed{
     left: 0;
     background: #e5e5e5;
     width: 100%;
-    padding: 0.2em 1.2em;
+    height: 1.6em;
+    padding: 0 1.2em;
     color: #199DD2;
     font-size: 0.9em;
+    z-index: 1000;
+    line-height: 1.6em;
 }
 section .bar{
     position: absolute;
     right: 0;
-    top: 2em;
+    top: 2.5em;
     padding: 0.5em 0.3em;
     text-align: center;
     font-size: 0.8em;
