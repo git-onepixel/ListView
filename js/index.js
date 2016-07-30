@@ -1,5 +1,14 @@
 $(function(){
-   var obj = {
+    window.requestAnimFrame = (function(){
+        return  window.requestAnimationFrame  ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame    ||
+            function( callback ){
+                window.setTimeout(callback, 1000 / 60);
+            };
+    })();
+
+    var obj = {
        init:function(){
            this.loadData();
        },
@@ -29,7 +38,7 @@ $(function(){
                           '<dt id="'+obj.Index+'" class="title">',obj.Index,'</dt>',
                            (function(){
                                var temp = "";
-                               obj.Citys = obj.Citys.slice(0,10)
+                               //obj.Citys = obj.Citys.slice(0,10)
                                obj.Citys.forEach(function(o){
                                    temp += '<dd class="data">'+ o.Name + '</dd>'
                                });
@@ -57,21 +66,25 @@ $(function(){
        },
 
        initNavLetter:function(){
+           var last = +new Date();
            var citys = document.querySelector('#citys');
            var letters = document.querySelectorAll('.title');
            var fixed = document.querySelector('.fixed');
            fixed.innerText = letters[0].innerText;
            citys.addEventListener('scroll',function(e){
-               var current = letters[0];
-               for (var i=0;i<letters.length;i++){
-                   var p = letters[i];
-                   if(p.offsetTop <= this.scrollTop){
-                       if(current.offsetTop < p.offsetTop){
-                           current = p;
+               var self = this;
+               requestAnimationFrame(function(){
+                   var current = letters[0];
+                   for (var i=0;i<letters.length;i++){
+                       var p = letters[i];
+                       if(p.offsetTop <= self.scrollTop){
+                           if(current.offsetTop < p.offsetTop){
+                               current = p;
+                           }
                        }
                    }
-               }
-               fixed.innerText = current.innerText;
+                   fixed.innerText = current.innerText;
+               });
            })
        },
 
