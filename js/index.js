@@ -50,6 +50,10 @@ $(function(){
                letters.push()
            });
            citys.innerHTML = html;
+           var li = document.createElement('li');
+           li.style.cssText= "text-align: center;font-size: 0.9em;color: #717171;padding: 10px 0 60px";
+           li.innerText = "没有更多数据！";
+           citys.appendChild(li);
 
            var bar = document.querySelector('.bar');
            var barHtml = '';
@@ -66,11 +70,13 @@ $(function(){
        },
 
        initNavLetter:function(){
-           var last = +new Date();
+           var scope = this;
            var citys = document.querySelector('#citys');
            var letters = document.querySelectorAll('.title');
            var fixed = document.querySelector('.fixed');
            fixed.innerText = letters[0].innerText;
+           var timer = null;
+
            citys.addEventListener('scroll',function(e){
                var self = this;
                requestAnimationFrame(function(){
@@ -86,7 +92,47 @@ $(function(){
                    fixed.innerText = current.innerText;
                    var delta = fixed.offsetHeight;
                });
+
+               if (timer){
+                   clearTimeout(timer);
+               }
+               timer = setTimeout(function(){
+                   this.isHide = false;
+                   requestAnimationFrame(this.showFooterBar)
+               }.bind(scope),500);
+           });
+           var X,Y;
+           citys.addEventListener('touchstart',function(e){
+               var touch = e.touches[0];
+               X = touch.pageX;
+               Y = touch.pageY;
+
+           }.bind(this));
+           citys.addEventListener('touchmove',function(e){
+               var touch = e.touches[0];
+               var deltaX = Math.abs(X - touch.pageX);
+               var deltaY = Math.abs(Y - touch.pageY);
+               if(deltaX < deltaY && Y > touch.pageY && !this.isHide){
+                   this.isHide = true;
+                   requestAnimationFrame(this.hideFooterBar)
+               }
+           }.bind(this));
+           citys.addEventListener('touchend',function(e){
+
+           });
+           citys.addEventListener('touchcancel',function(e){
+
            })
+       },
+
+       showFooterBar:function(){
+           var footer = document.querySelector('#footerbar');
+           footer.style.webkitTransform="translateY(0%)";
+       },
+
+       hideFooterBar:function(){
+           var footer = document.querySelector('#footerbar');
+           footer.style.webkitTransform="translateY(100%)";
        },
 
        initScrollBar:function(){
@@ -103,7 +149,7 @@ $(function(){
            bar.addEventListener('touchmove',function(e){
                e.preventDefault();
                this.setStopLetter(e,citys,stop,X);
-               bar.style.cssText = "border-radius:999px;background:#ccc";
+               //bar.style.cssText = "border-radius:999px;background:#ccc";
            }.bind(this));
            bar.addEventListener('touchend',function(e){
                bar.style.cssText = "";
