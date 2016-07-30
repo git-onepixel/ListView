@@ -93,17 +93,16 @@ $(function(){
            var bar = document.querySelector('.bar');
            var citys = document.querySelector('#citys');
            var stop = document.querySelector('.stop');
-
+           var X = 0;
            bar.addEventListener('touchstart',function(e){
                e.preventDefault();
-               this.setStopLetter(e,citys,stop);
+               X = e.touches[0].pageX;
+               this.setStopLetter(e,citys,stop,X);
                stop.style.display = "block";
            }.bind(this));
            bar.addEventListener('touchmove',function(e){
                e.preventDefault();
-               var x = e.touches[0].pageX;
-               var y = e.touches[0].pageY;
-               this.setStopLetter(e,citys,stop);
+               this.setStopLetter(e,citys,stop,X);
                bar.style.cssText = "border-radius:999px;background:#ccc";
            }.bind(this));
            bar.addEventListener('touchend',function(e){
@@ -116,9 +115,8 @@ $(function(){
            })
        },
 
-       setStopLetter:function(evt,container,stop){
+       setStopLetter:function(evt,container,stop,X){
            var touch = evt.touches[0];
-           var X = touch.pageX;
            var Y = touch.pageY;
            var target = document.elementFromPoint(X,Y);
            if(target && target.tagName == 'LI'){
