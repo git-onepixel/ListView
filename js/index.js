@@ -84,6 +84,7 @@ $(function(){
                        }
                    }
                    fixed.innerText = current.innerText;
+                   var delta = fixed.offsetHeight;
                });
            })
        },
