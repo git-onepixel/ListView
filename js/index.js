@@ -38,7 +38,7 @@ $(function(){
                           '<dt id="'+obj.Index+'" class="title">',obj.Index,'</dt>',
                            (function(){
                                var temp = "";
-                               //obj.Citys = obj.Citys.slice(0,10)
+                               obj.Citys = obj.Citys.slice(0,15);
                                obj.Citys.forEach(function(o){
                                    temp += '<dd class="data">'+ o.Name + '</dd>'
                                });
@@ -92,25 +92,31 @@ $(function(){
        initScrollBar:function(){
            var bar = document.querySelector('.bar');
            var citys = document.querySelector('#citys');
+           var stop = document.querySelector('.stop');
 
            bar.addEventListener('touchstart',function(e){
                e.preventDefault();
-               this.setStopLetter(e,citys);
+               this.setStopLetter(e,citys,stop);
+               stop.style.display = "block";
            }.bind(this));
            bar.addEventListener('touchmove',function(e){
                e.preventDefault();
-               this.setStopLetter(e,citys);
-               bar.style.cssText = "border-radius:999px;background:#ccc"
+               var x = e.touches[0].pageX;
+               var y = e.touches[0].pageY;
+               this.setStopLetter(e,citys,stop);
+               bar.style.cssText = "border-radius:999px;background:#ccc";
            }.bind(this));
            bar.addEventListener('touchend',function(e){
-               bar.style.cssText = ""
+               bar.style.cssText = "";
+               stop.style.display = "";
            });
            bar.addEventListener('touchcancel',function(e){
-               bar.style.cssText = ""
+               bar.style.cssText = "";
+               stop.style.display = "";
            })
        },
 
-       setStopLetter:function(evt,container){
+       setStopLetter:function(evt,container,stop){
            var touch = evt.touches[0];
            var X = touch.pageX;
            var Y = touch.pageY;
@@ -119,6 +125,8 @@ $(function(){
                var letter = target.innerText;
                var top = document.querySelector('#'+letter).offsetTop;
                container.scrollTop = top;
+               stop.style.top = (Y-20)+"px";
+               stop.innerText = letter;
            }
        },
        iOSOverflowScroll:function(targets){

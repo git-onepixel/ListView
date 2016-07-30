@@ -6,7 +6,7 @@ html,body{
     -webkit-user-select: none;
 }
 header{
-    height: 8%;
+    height: 10%;
     background: #199DD2;
     box-sizing: border-box;
     margin: auto;
@@ -69,7 +69,36 @@ section .bar{
     text-align: center;
     font-size: 0.8em;
     color:#199DD2;
+    height: 90%;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
 }
 section .bar .item{
    padding: 0 0;
+    -webkit-box-flex: 1;
+}
+.stop{
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    background: #6cc4f9;
+    border-radius: 3px;
+    top: 100px;
+    left: 70%;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+    font-size: 20px;
+    display: none;
+}
+.stop:after{
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background:  #6cc4f9;
+    -webkit-transform: rotate(45deg);
+    right: -5px;
+    top:50%;
+    margin-top:-5px;
 }
