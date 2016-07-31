@@ -116,7 +116,6 @@ $(function(){
                },100)
            }.bind(this));
            citys.addEventListener('touchmove',function(e){
-               target.style.background = "";
                var touch = e.touches[0];
                var deltaX = Math.abs(X - touch.pageX);
                var deltaY = Math.abs(Y - touch.pageY);
@@ -124,7 +123,10 @@ $(function(){
                    this.isHide = true;
                    requestAnimationFrame(this.hideFooterBar)
                }
-               isMove = true;
+               if(!isMove){
+                   target.style.background = "";
+                   isMove = true;
+               }
            }.bind(this));
            citys.addEventListener('touchend',function(e){
                if(!isMove && target.tagName == 'DD'){
