@@ -110,7 +110,7 @@ $(function(){
                target = e.target;
                isMove = false;
                setTimeout(function(){
-                   if(!isMove){
+                   if(!isMove && target.tagName == 'DD'){
                        target.style.background = "#d6d6d6";
                    }
                },100)
@@ -126,7 +126,7 @@ $(function(){
                isMove = true;
            }.bind(this));
            citys.addEventListener('touchend',function(e){
-               if(!isMove){
+               if(!isMove && target.tagName == 'DD'){
                    setTimeout(function(){
                        target.style.background = "";
                        isMove = false;
