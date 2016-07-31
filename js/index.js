@@ -38,7 +38,7 @@ $(function(){
                           '<dt id="'+obj.Index+'" class="title">',obj.Index,'</dt>',
                            (function(){
                                var temp = "";
-                               obj.Citys = obj.Citys.slice(0,15);
+                               obj.Citys = obj.Citys.slice(0,parseInt(Math.random()*10)+5);
                                obj.Citys.forEach(function(o){
                                    temp += '<dd class="data">'+ o.Name + '</dd>'
                                });
@@ -101,12 +101,19 @@ $(function(){
                    requestAnimationFrame(this.showFooterBar)
                }.bind(scope),500);
            });
-           var X,Y;
+           var X, Y,isMove,target;
            citys.addEventListener('touchstart',function(e){
                var touch = e.touches[0];
                X = touch.pageX;
                Y = touch.pageY;
 
+               target = e.target;
+               isMove = false;
+               setTimeout(function(){
+                   if(!isMove){
+                       target.style.background = "#d6d6d6";
+                   }
+               },100)
            }.bind(this));
            citys.addEventListener('touchmove',function(e){
                var touch = e.touches[0];
@@ -116,12 +123,20 @@ $(function(){
                    this.isHide = true;
                    requestAnimationFrame(this.hideFooterBar)
                }
+               isMove = true;
            }.bind(this));
            citys.addEventListener('touchend',function(e){
-
+               if(!isMove){
+                   setTimeout(function(){
+                       target.style.background = "";
+                       isMove = false;
+                       alert('您已选择：'+target.innerText)
+                   },300)
+               }
            });
            citys.addEventListener('touchcancel',function(e){
-
+               target.style.background = "";
+               isMove = false;
            })
        },
 
