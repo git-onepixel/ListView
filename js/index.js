@@ -10,6 +10,10 @@ $(function(){
 
     var obj = {
        init:function(){
+           var ua = navigator.userAgent.toLowerCase();
+           if(ua.match(/MicroMessenger/i)=="micromessenger") {
+               this.hideHeadView();
+           }
            this.loadData();
        },
 
@@ -62,11 +66,17 @@ $(function(){
                    '<li class="item">',obj.Index,'</li>'
                ].join('')
            });
+
            bar.innerHTML = barHtml;
 
            this.initNavLetter();
            this.initScrollBar();
-           this.iOSOverflowScroll(citys)
+           this.iOSOverflowScroll(citys);
+       },
+
+       hideHeadView:function(){
+           document.querySelector('header').style.display = "none";
+           document.querySelector('section').style.height = "100%";
        },
 
        initNavLetter:function(){
