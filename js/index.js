@@ -1,5 +1,5 @@
 $(function(){
-    window.requestAnimFrame = (function(){
+    window.requestAnimationFrame = (function(){
         return  window.requestAnimationFrame  ||
             window.webkitRequestAnimationFrame ||
             window.mozRequestAnimationFrame    ||
@@ -116,6 +116,7 @@ $(function(){
                },100)
            }.bind(this));
            citys.addEventListener('touchmove',function(e){
+               target.style.background = "";
                var touch = e.touches[0];
                var deltaX = Math.abs(X - touch.pageX);
                var deltaY = Math.abs(Y - touch.pageY);
@@ -164,7 +165,6 @@ $(function(){
            bar.addEventListener('touchmove',function(e){
                e.preventDefault();
                this.setStopLetter(e,citys,stop,X);
-               //bar.style.cssText = "border-radius:999px;background:#ccc";
            }.bind(this));
            bar.addEventListener('touchend',function(e){
                bar.style.cssText = "";
@@ -182,10 +182,12 @@ $(function(){
            var target = document.elementFromPoint(X,Y);
            if(target && target.tagName == 'LI'){
                var letter = target.innerText;
-               var top = document.querySelector('#'+letter).offsetTop;
-               container.scrollTop = top;
-               stop.style.top = (Y-20)+"px";
-               stop.innerText = letter;
+               var top = document.querySelector('#'+letter);
+               if(top){
+                   container.scrollTop = top.offsetTop;
+                   stop.style.top = (Y-20)+"px";
+                   stop.innerText = letter;
+               }
            }
        },
        iOSOverflowScroll:function(targets){
