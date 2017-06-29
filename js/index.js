@@ -84,6 +84,8 @@ $(function() {
         },
         
         checkCount:0,
+        
+        isFirst:true,
 
         render: function() {
             console.log('xxxx');
@@ -98,6 +100,7 @@ $(function() {
                 requestAnimationFrame(this.render.bind(this))
             }else {
                this.checkCount = 0;
+                this.isFirst = true;
             }
         },
 
@@ -110,13 +113,13 @@ $(function() {
             fixed.innerText = letters[0].innerText;
             var timer = null;
 
-            var isFirst = true;
+            //this.isFirst = true;
 
             citys.addEventListener('scroll', function(e) {
                 var self = this;
-                if (isFirst) {
+                if (scope.isFirst) {
                     requestAnimationFrame(scope.render.bind(scope));
-                    isFirst = false;
+                    scope.isFirst = false;
                 }
 
                 requestAnimationFrame(function() {
