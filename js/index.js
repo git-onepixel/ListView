@@ -95,7 +95,7 @@ $(function() {
         initNavLetter: function() {
             var scope = this;
             var citys = document.querySelector('#citys');
-            scroller = citys;
+            this.scroller = citys;
             var letters = document.querySelectorAll('.title');
             var fixed = document.querySelector('.fixed');
             fixed.innerText = letters[0].innerText;
