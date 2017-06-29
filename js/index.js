@@ -88,7 +88,11 @@ $(function() {
         render: function() {
             console.log('xxxx');
             var nowTop = this.scroller.scrollTop;
-            if(nowTop == this.scrollTop) this.checkCount ++;
+            if(nowTop == this.scrollTop) {
+                 this.checkCount ++;
+            }else{
+              this.checkCount = 0;
+            }
             if (this.checkCount <10) {
                 this.scrollTop = nowTop;
                 requestAnimationFrame(this.render.bind(this))
