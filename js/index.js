@@ -88,7 +88,7 @@ $(function() {
             var nowTop = this.scroller.scrollTop;
             if (nowTop != this.scrollTop) {
                 this.scrollTop = nowTop;
-                requestAnimationFrame(this.render)
+                requestAnimationFrame(this.render.bind(this))
             }
         },
 
