@@ -1,12 +1,30 @@
 $(function() {
-    window.requestAnimationFrame = (function() {
-        return window.requestAnimationFrame ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame ||
-            function(callback) {
-                window.setTimeout(callback, 1000 / 60);
+    if (!Date.now)
+        Date.now = function() { return new Date().getTime(); };
+
+    (function() {
+        'use strict';
+
+        var vendors = ['webkit', 'moz'];
+        for (var i = 0; i < vendors.length && !window.requestAnimationFrame; ++i) {
+            var vp = vendors[i];
+            window.requestAnimationFrame = window[vp + 'RequestAnimationFrame'];
+            window.cancelAnimationFrame = (window[vp + 'CancelAnimationFrame'] ||
+                window[vp + 'CancelRequestAnimationFrame']);
+        }
+        if (/iP(ad|hone|od).*OS 6/.test(window.navigator.userAgent) // iOS6 is buggy
+            ||
+            !window.requestAnimationFrame || !window.cancelAnimationFrame) {
+            var lastTime = 0;
+            window.requestAnimationFrame = function(callback) {
+                var now = Date.now();
+                var nextTime = Math.max(lastTime + 16, now);
+                return setTimeout(function() { callback(lastTime = nextTime); },
+                    nextTime - now);
             };
-    })();
+            window.cancelAnimationFrame = clearTimeout;
+        }
+    }());
 
     var obj = {
         init: function() {
@@ -82,10 +100,10 @@ $(function() {
             document.querySelector('header').style.display = "none";
             document.querySelector('section').style.height = "100%";
         },
-        
-        checkCount:0,
-        
-        isFirst:true,
+
+        checkCount: 0,
+
+        isFirst: true,
 
         setFixed: function() {
             var current = window.letters[0];
@@ -105,17 +123,18 @@ $(function() {
             this.setFixed()
 
             var nowTop = this.scroller.scrollTop;
-            if(nowTop == this.scrollTop) {
-                 this.checkCount ++;
-            }else{
-              this.checkCount = 0;
+            if (nowTop == this.scrollTop) {
+                this.checkCount++;
+            } else {
+                this.checkCount = 0;
             }
-            if (this.checkCount <5) {
+            if (this.checkCount < 5) {
                 this.scrollTop = nowTop;
                 requestAnimationFrame(this.render.bind(this))
-            }else {
-               this.checkCount = 0;
+            } else {
+                this.checkCount = 0;
                 this.isFirst = true;
+                //cancelAnimationFrame()
             }
         },
 
