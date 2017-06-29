@@ -82,13 +82,18 @@ $(function() {
             document.querySelector('header').style.display = "none";
             document.querySelector('section').style.height = "100%";
         },
+        
+        checkCount:0,
 
         render: function() {
             console.log('xxxx');
             var nowTop = this.scroller.scrollTop;
-            if (nowTop != this.scrollTop) {
+            if(nowTop == this.scrollTop) this.checkCount ++;
+            if (this.checkCount <10) {
                 this.scrollTop = nowTop;
                 requestAnimationFrame(this.render.bind(this))
+            }else {
+               this.checkCount = 0;
             }
         },
 
