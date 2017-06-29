@@ -95,7 +95,7 @@ $(function() {
             }else{
               this.checkCount = 0;
             }
-            if (this.checkCount <10) {
+            if (this.checkCount <5) {
                 this.scrollTop = nowTop;
                 requestAnimationFrame(this.render.bind(this))
             }else {
