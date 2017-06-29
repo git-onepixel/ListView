@@ -83,8 +83,23 @@ $(function() {
             document.querySelector('section').style.height = "100%";
         },
 
+        setFixed: function() {
+            var current = window.letters[0];
+            for (var i = 0; i < window.letters.length; i++) {
+                var p = letters[i];
+                if (p.offsetTop <= this.scroller.scrollTop) {
+                    if (current.offsetTop < p.offsetTop) {
+                        current = p;
+                    }
+                }
+            }
+            window.fixed.innerText = current.innerText;
+        },
+
         render: function() {
             console.log('xxxx');
+            this.setFixed()
+
             var nowTop = this.scroller.scrollTop;
             if (nowTop != this.scrollTop) {
                 this.scrollTop = nowTop;
@@ -98,6 +113,13 @@ $(function() {
             scroller = citys;
             var letters = document.querySelectorAll('.title');
             var fixed = document.querySelector('.fixed');
+
+            //window.citys = citys;
+            window.letters = letters;
+            window.fixed = fixed;
+
+
+
             fixed.innerText = letters[0].innerText;
             var timer = null;
 
@@ -111,16 +133,16 @@ $(function() {
                 }
 
                 requestAnimationFrame(function() {
-                    var current = letters[0];
-                    for (var i = 0; i < letters.length; i++) {
-                        var p = letters[i];
-                        if (p.offsetTop <= self.scrollTop) {
-                            if (current.offsetTop < p.offsetTop) {
-                                current = p;
-                            }
-                        }
-                    }
-                    fixed.innerText = current.innerText;
+                    // var current = letters[0];
+                    // for (var i = 0; i < letters.length; i++) {
+                    //     var p = letters[i];
+                    //     if (p.offsetTop <= self.scrollTop) {
+                    //         if (current.offsetTop < p.offsetTop) {
+                    //             current = p;
+                    //         }
+                    //     }
+                    // }
+                    // fixed.innerText = current.innerText;
                     var delta = fixed.offsetHeight;
                 });
 
