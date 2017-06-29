@@ -106,7 +106,7 @@ $(function() {
             citys.addEventListener('scroll', function(e) {
                 var self = this;
                 if (isFirst) {
-                    requestAnimationFrame(this.render);
+                    requestAnimationFrame(scope.render);
                     isFirst = false;
                 }
 
