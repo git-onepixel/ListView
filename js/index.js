@@ -82,6 +82,10 @@ $(function() {
             document.querySelector('header').style.display = "none";
             document.querySelector('section').style.height = "100%";
         },
+        
+        checkCount:0,
+        
+        isFirst:true,
 
         setFixed: function() {
             var current = window.letters[0];
@@ -101,16 +105,24 @@ $(function() {
             this.setFixed()
 
             var nowTop = this.scroller.scrollTop;
-            if (nowTop != this.scrollTop) {
+            if(nowTop == this.scrollTop) {
+                 this.checkCount ++;
+            }else{
+              this.checkCount = 0;
+            }
+            if (this.checkCount <5) {
                 this.scrollTop = nowTop;
-                requestAnimationFrame(this.render)
+                requestAnimationFrame(this.render.bind(this))
+            }else {
+               this.checkCount = 0;
+                this.isFirst = true;
             }
         },
 
         initNavLetter: function() {
             var scope = this;
             var citys = document.querySelector('#citys');
-            scroller = citys;
+            this.scroller = citys;
             var letters = document.querySelectorAll('.title');
             var fixed = document.querySelector('.fixed');
 
@@ -123,13 +135,13 @@ $(function() {
             fixed.innerText = letters[0].innerText;
             var timer = null;
 
-            var isFirst = true;
+            //this.isFirst = true;
 
             citys.addEventListener('scroll', function(e) {
                 var self = this;
-                if (isFirst) {
-                    requestAnimationFrame(this.render);
-                    isFirst = false;
+                if (scope.isFirst) {
+                    requestAnimationFrame(scope.render.bind(scope));
+                    scope.isFirst = false;
                 }
 
                 requestAnimationFrame(function() {
