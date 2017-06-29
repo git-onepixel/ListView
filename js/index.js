@@ -78,7 +78,7 @@ $(function() {
             citys.innerHTML = html;
             var li = document.createElement('li');
             li.style.cssText = "text-align: center;font-size: 0.9em;color: #717171;padding: 10px 0 60px";
-            li.innerText = "没有更多数据！";
+            li.innerText = "没有更多数据了！";
             citys.appendChild(li);
 
             var bar = document.querySelector('.bar');
